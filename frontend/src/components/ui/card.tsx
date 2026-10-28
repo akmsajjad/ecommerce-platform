@@ -6,7 +6,7 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export function Card({ className, children }: CardProps) {
   return (
-    <div className={['rounded-xl border bg-white text-foreground shadow-sm', className].filter(Boolean).join(' ')}>
+    <div className={['rounded-xl border-gray-200 bg-white shadow-sm', className].filter(Boolean).join(' ')}>
       {children}
     </div>
   )
@@ -22,7 +22,7 @@ export function CardHeader({ className, title, description, children }: CardHead
   return (
     <div className={['flex flex-col space-y-1.5 p-6', className].filter(Boolean).join(' ')}>
       {title && <h2 className="text-2xl font-semibold leading-none tracking-tight">{title}</h2>}
-      {description && <p className="text-sm text-muted-foreground">{description}</p>}
+      {description && <p className="text-sm text-gray-500">{description}</p>}
       {children}
     </div>
   )
@@ -41,7 +41,7 @@ export interface CardDescriptionProps extends React.HTMLAttributes<HTMLParagraph
 }
 
 export function CardDescription({ className, children }: CardDescriptionProps) {
-  return <p className={['text-sm text-muted-foreground', className].filter(Boolean).join(' ')}>{children}</p>
+  return <p className={['text-sm text-gray-500', className].filter(Boolean).join(' ')}>{children}</p>
 }
 
 export interface CardContentProps extends React.HTMLAttributes<HTMLDivElement> {
