@@ -1,5 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
 
 interface StockItem {
   id: number
@@ -77,7 +78,7 @@ export default function AdminInventory() {
                 placeholder="Scan barcode..."
                 className="w-full sm:w-64 h-10 rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
-              <button className="btn-primary">Lookup</button>
+              <Button>Lookup</Button>
             </div>
           </div>
         </CardContent>
