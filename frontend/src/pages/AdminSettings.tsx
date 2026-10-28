@@ -12,7 +12,7 @@ export default function AdminSettings() {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold">Settings</h1>
+          <h1 className="text-2xl font-bold text-gray-900">Settings</h1>
           <p className="text-sm text-gray-500">Store configuration and preferences</p>
         </div>
       </div>

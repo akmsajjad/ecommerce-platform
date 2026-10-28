@@ -2,28 +2,12 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 
-interface OrderRow {
-  id: number
-  orderNumber: string
-  customer: string
-  total: string
-  paymentStatus: string
-  fulfillmentStatus: string
-  date: string
-}
-
-const orders: OrderRow[] = [
-  { id: 1, orderNumber: 'BB000001', customer: 'customer@example.com', total: '৳2,499.00', paymentStatus: 'Paid', fulfillmentStatus: 'Shipped', date: '2026-10-28' },
-  { id: 2, orderNumber: 'BB000002', customer: 'user2@example.com', total: '৳899.00', paymentStatus: 'Pending', fulfillmentStatus: 'Pending', date: '2026-10-27' },
-  { id: 3, orderNumber: 'BB000003', customer: 'user3@example.com', total: '৳5,998.00', paymentStatus: 'Paid', fulfillmentStatus: 'Delivered', date: '2026-10-26' },
-]
-
 export default function AdminOrders() {
   return (
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold">Orders</h1>
+          <h1 className="text-2xl font-bold text-gray-900">Orders</h1>
           <p className="text-sm text-gray-500">Manage customer orders</p>
         </div>
       </div>
@@ -47,18 +31,22 @@ export default function AdminOrders() {
                 </tr>
               </thead>
               <tbody>
-                {orders.map((o) => (
-                  <tr key={o.id} className="border-b border-gray-100 hover:bg-gray-50">
-                    <td className="py-4 font-medium">{o.orderNumber}</td>
-                    <td className="py-4">{o.customer}</td>
-                    <td className="py-4 font-medium">{o.total}</td>
+                {[1, 2, 3].map((i) => (
+                  <tr key={i} className="border-b border-gray-100 hover:bg-gray-50">
+                    <td className="py-4 font-medium">BB00000{i}</td>
+                    <td className="py-4">customer{i}@example.com</td>
+                    <td className="py-4 font-medium">৳{2499 * i}.00</td>
                     <td className="py-4">
-                      <Badge variant={o.paymentStatus === 'Paid' ? 'default' : 'secondary'}>{o.paymentStatus}</Badge>
+                      <Badge variant={i % 2 === 0 ? 'primary' : 'secondary'} size="sm">
+                        {i % 2 === 0 ? 'Paid' : 'Pending'}
+                      </Badge>
                     </td>
                     <td className="py-4">
-                      <Badge variant={o.fulfillmentStatus === 'Delivered' ? 'default' : 'outline'}>{o.fulfillmentStatus}</Badge>
+                      <Badge variant={i === 3 ? 'primary' : 'outline'} size="sm">
+                        {i === 3 ? 'Delivered' : 'Processing'}
+                      </Badge>
                     </td>
-                    <td className="py-4 text-sm text-gray-500">{o.date}</td>
+                    <td className="py-4 text-sm text-gray-500">2026-10-{28 - i}</td>
                     <td className="py-4 text-right">
                       <Button size="sm">View</Button>
                     </td>

@@ -6,6 +6,7 @@ import Cart from './pages/Cart'
 import Checkout from './pages/Checkout'
 import Login from './pages/Login'
 import Register from './pages/Register'
+import AffiliateRegister from './pages/AffiliateRegister'
 import AdminDashboard from './pages/AdminDashboard'
 import AdminProducts from './pages/AdminProducts'
 import AdminOrders from './pages/AdminOrders'
@@ -13,7 +14,6 @@ import AdminInventory from './pages/AdminInventory'
 import AdminCoupons from './pages/AdminCoupons'
 import AdminAffiliates from './pages/AdminAffiliates'
 import AdminSettings from './pages/AdminSettings'
-import AffiliateRegister from './pages/AffiliateRegister'
 
 function App() {
   return (
@@ -26,6 +26,8 @@ function App() {
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/affiliate/register" element={<AffiliateRegister />} />
+
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/admin/products" element={<AdminProducts />} />
         <Route path="/admin/orders" element={<AdminOrders />} />
@@ -33,7 +35,6 @@ function App() {
         <Route path="/admin/coupons" element={<AdminCoupons />} />
         <Route path="/admin/affiliates" element={<AdminAffiliates />} />
         <Route path="/admin/settings" element={<AdminSettings />} />
-        <Route path="/affiliate/register" element={<AffiliateRegister />} />
       </Routes>
     </BrowserRouter>
   )

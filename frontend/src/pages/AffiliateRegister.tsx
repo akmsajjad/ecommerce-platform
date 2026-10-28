@@ -1,16 +1,14 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import api from '@/services/api'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card } from '@/components/ui/card'
+import api from '@/services/api'
 
 export default function AffiliateRegister() {
   const [referralCode, setReferralCode] = useState('')
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
   const [loading, setLoading] = useState(false)
-  const navigate = useNavigate()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -29,13 +27,13 @@ export default function AffiliateRegister() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-muted/50">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-20 px-4">
       <Card className="w-full max-w-md">
-        <CardHeader>
-          <CardTitle>Affiliate Program</CardTitle>
-          <CardDescription>Join our affiliate network and earn commissions on referrals.</CardDescription>
-        </CardHeader>
-        <CardContent>
+        <div className="p-8">
+          <div className="text-center mb-8">
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">Affiliate Program</h2>
+            <p className="text-gray-500">Join our affiliate network and earn commissions on referrals.</p>
+          </div>
           {success && (
             <div className="mb-4 p-3 bg-green-50 text-green-700 rounded border border-green-100">
               {success}
@@ -61,13 +59,13 @@ export default function AffiliateRegister() {
               {loading ? 'Submitting...' : 'Apply for Affiliate Program'}
             </Button>
           </form>
-        </CardContent>
-        <CardFooter className="flex flex-col gap-2">
-          <p className="text-sm text-center">Already have an account?</p>
-          <Button variant="link" onClick={() => navigate('/login')}>
-            Sign in
-          </Button>
-        </CardFooter>
+          <div className="mt-6 pt-4 border-t border-gray-100 text-center space-y-2">
+            <p className="text-sm text-gray-600">Already have an account?</p>
+            <a href="/login" className="text-sm font-medium text-primary-600 hover:text-primary-700 transition-colors">
+              Sign in
+            </a>
+          </div>
+        </div>
       </Card>
     </div>
   )

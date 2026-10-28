@@ -1,27 +1,11 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
-interface CouponRow {
-  id: number
-  code: string
-  type: string
-  value: string
-  minOrder: string
-  uses: string
-  status: string
-}
-
-const coupons: CouponRow[] = [
-  { id: 1, code: 'SAVE10', type: 'Percentage', value: '10%', minOrder: '৳500', uses: '50/100', status: 'Active' },
-  { id: 2, code: 'FLAT50', type: 'Fixed', value: '৳50', minOrder: '৳200', uses: '10/50', status: 'Active' },
-  { id: 3, code: 'WELCOME20', type: 'Percentage', value: '20%', minOrder: '৳1000', uses: '5/200', status: 'Expired' },
-]
-
 export default function AdminCoupons() {
   return (
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold">Coupons</h1>
+          <h1 className="text-2xl font-bold text-gray-900">Coupons</h1>
           <p className="text-sm text-gray-500">Manage discount codes and promotions</p>
         </div>
       </div>
@@ -45,20 +29,20 @@ export default function AdminCoupons() {
                 </tr>
               </thead>
               <tbody>
-                {coupons.map((c) => (
-                  <tr key={c.id} className="border-b border-gray-100 hover:bg-gray-50">
-                    <td className="py-4 font-medium">{c.code}</td>
-                    <td className="py-4">{c.type}</td>
-                    <td className="py-4">{c.value}</td>
-                    <td className="py-4">{c.minOrder}</td>
-                    <td className="py-4">{c.uses}</td>
+                {[1, 2, 3].map((i) => (
+                  <tr key={i} className="border-b border-gray-100 hover:bg-gray-50">
+                    <td className="py-4 font-medium">SAVE{i}0</td>
+                    <td className="py-4">Percentage</td>
+                    <td className="py-4">{i * 10}%</td>
+                    <td className="py-4">৳500</td>
+                    <td className="py-4">{i * 10}/100</td>
                     <td className="py-4">
-                      <span className={`px-2 py-1 rounded text-xs font-medium ${c.status === 'Active' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
-                        {c.status}
+                      <span className="px-2 py-1 rounded text-xs font-medium bg-green-100 text-green-700">
+                        Active
                       </span>
                     </td>
                     <td className="py-4 text-right">
-                      <button className="text-sm text-blue-600 hover:underline">Edit</button>
+                      <button className="text-sm text-primary-600 hover:underline">Edit</button>
                     </td>
                   </tr>
                 ))}

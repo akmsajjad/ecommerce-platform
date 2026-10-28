@@ -2,27 +2,12 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 
-interface StockItem {
-  id: number
-  product: string
-  sku: string
-  currentStock: number
-  lowStockThreshold: number
-  status: string
-}
-
-const stockItems: StockItem[] = [
-  { id: 1, product: 'Men\'s Cotton T-Shirt', sku: 'TSH-001', currentStock: 150, lowStockThreshold: 10, status: 'OK' },
-  { id: 2, product: 'Women\'s Silk Saree', sku: 'SAR-002', currentStock: 3, lowStockThreshold: 10, status: 'Low' },
-  { id: 3, product: 'Smartphone X100', sku: 'PHN-003', currentStock: 23, lowStockThreshold: 5, status: 'OK' },
-]
-
 export default function AdminInventory() {
   return (
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold">Inventory</h1>
+          <h1 className="text-2xl font-bold text-gray-900">Inventory</h1>
           <p className="text-sm text-gray-500">Manage stock levels and movements</p>
         </div>
       </div>
@@ -45,14 +30,16 @@ export default function AdminInventory() {
                 </tr>
               </thead>
               <tbody>
-                {stockItems.map((item) => (
-                  <tr key={item.id} className="border-b border-gray-100 hover:bg-gray-50">
-                    <td className="py-4 font-medium">{item.product}</td>
-                    <td className="py-4">{item.sku}</td>
-                    <td className="py-4">{item.currentStock}</td>
-                    <td className="py-4">{item.lowStockThreshold}</td>
+                {[1, 2, 3].map((i) => (
+                  <tr key={i} className="border-b border-gray-100 hover:bg-gray-50">
+                    <td className="py-4 font-medium">Product {i}</td>
+                    <td className="py-4">SKU-00{i}</td>
+                    <td className="py-4">{100 - i * 20}</td>
+                    <td className="py-4">10</td>
                     <td className="py-4">
-                      <Badge variant={item.status === 'OK' ? 'default' : 'destructive'}>{item.status}</Badge>
+                      <Badge variant={i === 2 ? 'destructive' : 'primary'} size="sm">
+                        {i === 2 ? 'Low Stock' : 'OK'}
+                      </Badge>
                     </td>
                     <td className="py-4 text-right">
                       <Badge variant="outline" size="sm">Adjust Stock</Badge>
@@ -71,12 +58,12 @@ export default function AdminInventory() {
         </CardHeader>
         <CardContent className="pt-0">
           <div className="p-6 text-center">
-            <p className="text-sm text-gray-500 mb-4">Scan or enter a barcode to look up product information</p>
+            <p className="text-sm text-gray-500 mb-6">Scan or enter a barcode to look up product information</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <input
                 type="text"
                 placeholder="Scan barcode..."
-                className="w-full sm:w-64 h-10 rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full sm:w-80 h-11 rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
               />
               <Button>Lookup</Button>
             </div>
