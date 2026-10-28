@@ -14,4 +14,10 @@ urlpatterns = [
     path('api/v1/', include('apps.checkout.urls')),
     path('api/v1/', include('apps.promotions.urls')),
     path('api/v1/', include('apps.affiliates.urls')),
+    path('api/v1/', include('apps.inventory.urls')),
+    path('api/v1/', include('apps.payments.urls')),
+    path('api/v1/', include('apps.shipping.urls')),
+    path('api/v1/admin/', include('apps.analytics.urls')),
+    path('api/v1/admin/', include('apps.content.urls')),
+    path('api/v1/admin/', include('apps.audit.urls')),
 ]
