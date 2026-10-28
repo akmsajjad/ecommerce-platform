@@ -2,10 +2,11 @@ import * as React from 'react'
 
 export interface BadgeProps extends React.HTMLAttributes<HTMLDivElement> {
   variant?: 'default' | 'secondary' | 'destructive' | 'outline'
+  size?: 'default' | 'sm'
   className?: string
 }
 
-export function Badge({ className, variant = 'default', ...props }: BadgeProps) {
+export function Badge({ className, variant = 'default', size = 'default', ...props }: BadgeProps) {
   return (
     <div
       className={[
@@ -16,6 +17,7 @@ export function Badge({ className, variant = 'default', ...props }: BadgeProps) 
           destructive: 'border-transparent bg-red-500 text-white hover:bg-red-600',
           outline: 'text-gray-900 border-gray-300',
         }[variant],
+        size === 'sm' ? 'text-[10px] px-2 py-0.5' : '',
         className,
       ].filter(Boolean).join(' ')}
       {...props}

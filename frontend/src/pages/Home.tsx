@@ -1,4 +1,18 @@
+import { useEffect, useState } from 'react'
+import api from '@/services/api'
+import { Product } from '@/types'
+import { Button } from '@/components/ui/button'
+import { Card } from '@/components/ui/card'
+
 export default function Home() {
+  const [products, setProducts] = useState<Product[]>([])
+
+  useEffect(() => {
+    api.get('/products/').then((res) => {
+      setProducts(res.data.results || res.data)
+    })
+  }, [])
+
   return (
     <div className="min-h-screen bg-white">
       <header className="border-b bg-white">
@@ -19,14 +33,19 @@ export default function Home() {
         </div>
       </header>
       <main className="max-w-7xl mx-auto py-8 sm:px-6 lg:px-8">
-        <h1 className="text-3xl font-bold mb-8">Welcome to BanglaBazar</h1>
+        <h1 className="text-3xl font-bold mb-8">Featured Products</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
-            <div key={i} className="rounded-lg border p-6 bg-gray-50">
-              <div className="h-32 rounded-lg bg-gray-200 mb-4" />
-              <h3 className="text-lg font-semibold">Product {i}</h3>
-              <p className="text-gray-600">৳0.00</p>
-            </div>
+          {products.map((p) => (
+            <Card key={p.id} className="p-4">
+              <div className="h-40 rounded-lg bg-gray-100 mb-4 flex items-center justify-center">
+                <span className="text-gray-400 text-sm">{p.name}</span>
+              </div>
+              <h3 className="text-lg font-semibold mb-1">{p.name}</h3>
+              <p className="text-2xl font-bold text-blue-600">৳{p.effective_price}</p>
+              <Button variant="outline" size="sm" onClick={() => {}}>
+                Add to Cart
+              </Button>
+            </Card>
           ))}
         </div>
       </main>

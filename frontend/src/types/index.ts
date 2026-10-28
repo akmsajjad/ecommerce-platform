@@ -19,6 +19,7 @@ export interface Product {
   is_featured: boolean
   is_new: boolean
   weight?: string
+  effective_price: string
   images: ProductImage[]
   variants: ProductVariant[]
 }
