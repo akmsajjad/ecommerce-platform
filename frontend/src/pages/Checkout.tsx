@@ -13,6 +13,9 @@ export default function Checkout() {
   const [upazila, setUpazila] = useState('')
   const [addressLine, setAddressLine] = useState('')
   const [paymentMethod, setPaymentMethod] = useState('cod')
+  const [couponCode, setCouponCode] = useState('')
+  const [couponDiscount, setCouponDiscount] = useState(0)
+  const [couponMessage, setCouponMessage] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
@@ -33,12 +36,32 @@ export default function Checkout() {
       const res = await api.post('/checkout/place-order/', {
         shipping_address: shippingAddress,
         payment_method: paymentMethod,
+        coupon_code: couponCode || undefined,
       })
       navigate(`/orders/${res.data.order_number}`)
     } catch (err: any) {
       setError(err.response?.data?.error || 'Checkout failed')
     } finally {
       setLoading(false)
+    }
+  }
+
+  const validateCoupon = async () => {
+    if (!couponCode) return
+    try {
+      const res = await api.post('/coupons/validate/', {
+        code: couponCode,
+        cart_total: '0',
+      })
+      if (res.data.valid) {
+        setCouponDiscount(parseFloat(res.data.discount_amount))
+        setCouponMessage(res.data.message)
+      } else {
+        setCouponDiscount(0)
+        setCouponMessage(res.data.message)
+      }
+    } catch {
+      setCouponMessage('Coupon validation failed')
     }
   }
 
@@ -95,6 +118,26 @@ export default function Checkout() {
                   onChange={(e) => setAddressLine(e.target.value)}
                   required
                 />
+
+                <div className="space-y-2">
+                  <label className="text-sm font-medium">Coupon Code</label>
+                  <div className="flex gap-2">
+                    <Input
+                      value={couponCode}
+                      onChange={(e) => setCouponCode(e.target.value)}
+                      placeholder="Enter coupon code"
+                    />
+                    <Button variant="outline" size="sm" onClick={validateCoupon}>
+                      Apply
+                    </Button>
+                  </div>
+                  {couponMessage && (
+                    <p className={`text-sm ${couponDiscount > 0 ? 'text-green-600' : 'text-red-500'}`}>
+                      {couponMessage}
+                    </p>
+                  )}
+                </div>
+
                 <div className="space-y-2">
                   <label className="text-sm font-medium">Payment Method</label>
                   {['cod', 'sslcommerz', 'bkash', 'nagad'].map((method) => (
@@ -110,7 +153,7 @@ export default function Checkout() {
                     </label>
                   ))}
                 </div>
-                {error && <p className="text-sm text-destructive">{error}</p>}
+                {error && <p className="text-sm text-red-500">{error}</p>}
                 <Button type="submit" className="w-full" disabled={loading}>
                   {loading ? 'Placing order...' : 'Place Order'}
                 </Button>

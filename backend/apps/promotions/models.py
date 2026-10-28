@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from django.utils import timezone
 
 
 class Coupon(models.Model):
@@ -25,6 +26,15 @@ class Coupon(models.Model):
     def __str__(self):
         return self.code
 
+    def is_valid(self):
+        now = timezone.now()
+        return (
+            self.is_active
+            and self.start_date <= now
+            and self.expiry_date >= now
+            and (self.usage_limit is None or self.times_used < self.usage_limit)
+        )
+
 
 class PromotionRule(models.Model):
     name = models.CharField(max_length=200)
@@ -36,9 +46,15 @@ class PromotionRule(models.Model):
     start_date = models.DateTimeField()
     end_date = models.DateTimeField()
     is_active = models.BooleanField(default=True)
+    priority = models.IntegerField(default=0)
 
     class Meta:
         db_table = 'promotions_promotionrule'
+        ordering = ['-priority']
 
     def __str__(self):
         return self.name
+
+    def is_valid(self):
+        now = timezone.now()
+        return self.is_active and self.start_date <= now and self.end_date >= now
